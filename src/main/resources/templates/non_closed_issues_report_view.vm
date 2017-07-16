@@ -1,0 +1,33 @@
+#* @vtlvariable name="i18n" type="com.atlassian.jira.util.I18nHelper" *#
+#disable_html_escaping()
+
+$webResourceManager.requireResource("org.yandex.not-closed-issues-report:non-closed-issues-report-resources")
+
+<table class="aui">
+
+    <thead>
+        <tr>
+            <th>$i18n.getText("jira.dynamics.non.closed.issues.report.table.header.project")</th>
+            <th style="width: 25%;">
+                $i18n.getText("jira.dynamics.non.closed.issues.report.table.header.created.issues")
+            </th>
+            <th style="width: 25%;">
+                $i18n.getText("jira.dynamics.non.closed.issues.report.table.header.closed.issues")
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        #* @vtlvariable name="issues" type="java.util.Collection<org.yandex.reports.ReportData>" *#
+        #foreach ($issue in $issues)
+            <tr>
+                <td>$issue.projectSummary</td>
+                <td>$issue.createdIssuesCount</td>
+                <td>$issue.closedIssuesCount</td>
+            </tr>
+        #end
+
+    </tbody>
+
+</table>

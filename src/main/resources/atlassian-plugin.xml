@@ -1,0 +1,66 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <resource type="i18n" name="i18n" location="/i18n/internalization"/>
+
+    <web-resource key="not-closed-issues-report-resources" name="not-closed-issues-report Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="images/" location="/images"/>
+        <context>not-closed-issues-report</context>
+    </web-resource>
+
+    <web-resource key="non-closed-issues-report-resources"
+                  name="Web resources for non-closed issues report">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="non-closed-issues-report-styles.css"
+                  location="/css/non-closed-issues-report-styles.css"/>
+    </web-resource>
+
+    <report key="dynamics-of-non-closed-issues-report"
+            name="Report on the dynamics of non-closed issues"
+            class="org.yandex.reports.NonClosedIssuesReport"
+            i18n-name-key="jira.dynamics.non.closed.issues.report.name">
+        <label key="jira.dynamics.non.closed.issues.report.label"/>
+        <resource type="velocity" name="view" location="/templates/non_closed_issues_report_view.vm"/>
+
+        <properties>
+
+            <property>
+                <key>filterId</key>
+                <name>jira.dynamics.non.closed.issues.report.filter.property.name</name>
+                <description>jira.dynamics.non.closed.issues.report.filter.property.description</description>
+                <type>filterpicker</type>
+            </property>
+
+            <property>
+                <key>periodId</key>
+                <name>jira.dynamics.non.closed.issues.report.period.property.name</name>
+                <type>select</type>
+                <values>
+                    <value>
+                        <key>week</key>
+                        <value>jira.dynamics.non.closed.issues.report.period.property.value.week</value>
+                    </value>
+                    <value>
+                        <key>month</key>
+                        <value>jira.dynamics.non.closed.issues.report.period.property.value.month</value>
+                    </value>
+                    <value>
+                        <key>year</key>
+                        <value>jira.dynamics.non.closed.issues.report.period.property.value.year</value>
+                    </value>
+                </values>
+            </property>
+
+        </properties>
+    </report>
+
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties" />
+    
+</atlassian-plugin>
